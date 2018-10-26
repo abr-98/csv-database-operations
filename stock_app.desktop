@@ -1,0 +1,13 @@
+
+#!/usr/bin/python2.7
+[Desktop Entry]
+Version=1.0
+Name=STOCK RECORDS
+
+Exec=/home/abhijit/stock_app/database_upload.py
+Icon=/home/abhijit/stock_app/stock_app.png
+#Path=/home/abhijit/.atom
+Terminal=false
+Type=Application
+Categories=Application;
+StartupNotify=true
