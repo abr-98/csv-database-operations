@@ -1,9 +1,12 @@
+#!bin/python2.7
 import MySQLdb, csv, sys
 import os
+import os.path,time
 from subprocess import call
 
 import mysql.connector
 import datetime
+
 exitcode= call("python3 file_launcher.py", shell=True)
 conn=mydb = mysql.connector.connect(
   host="localhost",
@@ -17,7 +20,9 @@ text_file = open("Output.txt", "r")
 file_name=text_file.read()
 text_file.close()
 now=datetime.datetime.now().date()
+#time_now=datetime.datetime.now().time()
 #print(file_name)
+modify_time=os.path.getmtime(file_name)
 if not file_name.endswith('.csv'):
     if not file_name.endswith('.txt'):
         print("Please enter correct file type")

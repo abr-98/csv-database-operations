@@ -3,10 +3,13 @@
 [Desktop Entry]
 Version=1.0
 Name=STOCK RECORDS
+#creating Exec file
 
-Exec=/home/abhijit/stock_app/database_upload.py
+Exec=/home/abhijit/stock_app/stock_app_launch.py
+#creating icon
 Icon=/home/abhijit/stock_app/stock_app.png
 #Path=/home/abhijit/.atom
+#no terminal launch
 Terminal=false
 Type=Application
 Categories=Application;
