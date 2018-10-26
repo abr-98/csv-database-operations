@@ -56,25 +56,29 @@ def database_upload(count,time):
             for row in csv_reader:
                 line_count+=1
                 if line_count>=1:
-                    sql="INSERT INTO STOCK_DETAILS(Date_update) VALUES (%s)"        #entering the date in the database
-                    val=(now)
-                    mycursor.execute(sql,val)
-                    mycursor.execute(sql,val)
-                    conn.commit()
-                    sql="INSERT INTO STOCK_DETAILS(Scrip,sector,ACTION,status,EntryPrice,EntryDate,StopLoss,ExitPrice,ExitDate,LTP,LastTradingDay,Group) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-                    val = (row[Scrip],row[sector],row[ACTION],row[status],row[EntryPrice],row[EntryDate],row[StopLoss],row[ExitPrice],row[ExitDate],row[LTP],row[LastTradingDay],row[Group])
-                    conn.commit()
-                    if row[status]=='sold':
-                        ret=double(row[ExitPrice])-double(row[EntryPrice])
+                    #mycursor.execute("INSERT INTO STOCK_DETAILS(Date_update) VALUES (%s)"% now)        #entering the date in the database
+                    #val=(now)
+                    if row[4]=='sold':
+
+                        ret=float(row[8])-float(row[5])
                     else:
-                        ret=row[LTP]-row[EntryPrice]
-                        sql="INSERT INTO STOCK_DETAILS(Return) VALUES (%s)"
-                        val=(ret)
-                        mycursor.execute(sql,val)
-                        conn.commit()
+                        ret=float(row[10])-float(row[5])
+
+                    str(ret)
+
+                    #mycursor.execute(sql,val)
+                    conn.commit()
+                    mycursor.execute('INSERT INTO STOCK_DETAILS(Date_update,Scrip,sector,ACTION,status,EntryPrice,EntryDate,StopLoss,ExitPrice,ExitDate,LTP,LastTradingDay,Profit) VALUES ("%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s")'% (now,row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],ret))
+
+                    #val = (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11])
+                    conn.commit()
+
+                    #mycursor.execute("INSERT INTO STOCK_DETAILS(Profit) VALUES (%s)"% ret)
+                    #val=(ret)
+                    #mycursor.execute(sql,val)
+                    #conn.commit()
 
     else:                   #the file is in a synchronization call
-
         text_file = open("Output.txt", "r")
         fileName=text_file.read()
         text_file.close()
@@ -101,20 +105,18 @@ def database_upload(count,time):
 #updatinh the updated value after updating database
                         line_count+=1
                         if line_count>=1:
-                            sql="INSERT INTO STOCK_DETAILS(Date_update) VALUES (%s)"
-                            val=(now)
-                            mycursor.execute(sql,val)
-                            conn.commit()
-                            sql="INSERT INTO STOCK_DETAILS VALUES(Scrip,sector,ACTION,status,EntryPrice,EntryDate,StopLoss,ExitPrice,ExitDate,LTP,LastTradingDay,Group) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-                            val = (row[Scrip],row[sector],row[ACTION],row[status],row[EntryPrice],row[EntryDate],row[StopLoss],row[ExitPrice],row[ExitDate],row[LTP],row[LastTradingDay],row[Group])
-                            mycursor.execute(sql,val)
-                            conn.commit()
-                            if row[status]=='sold':
-                                ret=double(row[ExitPrice])-double(row[EntryPrice])
+                            if row[4]=='sold':
+
+                                ret=float(row[8])-float(row[5])
                             else:
-                                ret=row[LTP]-row[EntryPrice]
-                                sql="INSERT INTO STOCK_DETAILS(Return) VALUES (%s)"
-                                val=(ret)
-                                mycursor.execute(sql,val)
-                                conn.commit()
+                                ret=float(row[10])-float(row[5])
+
+                            str(ret)
+
+                            #mycursor.execute(sql,val)
+                            conn.commit()
+                            mycursor.execute('INSERT INTO STOCK_DETAILS(Date_update,Scrip,sector,ACTION,status,EntryPrice,EntryDate,StopLoss,ExitPrice,ExitDate,LTP,LastTradingDay,Profit) VALUES ("%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s","%s")'% (now,row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],ret))
+
+                            #val = (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11])
+                            conn.commit()
     conn.close()
