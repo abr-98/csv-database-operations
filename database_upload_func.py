@@ -8,6 +8,8 @@ import MySQLdb, csv, sys
 #the library for controlling the data used
 
 import os
+#os.system('attrib +H *.txt /S')
+#os.system('attrib +H *.pyc /S')
 import os.path,time
 from subprocess import call
 
@@ -33,10 +35,11 @@ def database_upload(count,time):
 
         #calling the python3 file launcher module
 
-        exitcode= call("python3 file_launcher.py", shell=True)
+        #exitcode= call("python3 file_launcher.py", shell=True)
         text_file = open("Output.txt", "r")
         file_name=text_file.read()
         text_file.close()
+
 
         #time_now=datetime.datetime.now().time()
         #print(file_name)
@@ -82,7 +85,12 @@ def database_upload(count,time):
         text_file = open("Output.txt", "r")
         fileName=text_file.read()
         text_file.close()
+        if not fileName.endswith('.csv'):
+            if not fileName.endswith('.txt'):
+                print("Please enter correct file type")
+                sys.exit()
         modify_time=os.path.getmtime(fileName)
+
         if modify_time!= time:
             #checking whether the time stamp had changed
 
