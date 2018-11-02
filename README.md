@@ -5,4 +5,5 @@ it records data from from csv to a database
 it displays its  database using web
 it refreshes and records the alterations
 
-Project under development
+Project under development as stock_app
+
