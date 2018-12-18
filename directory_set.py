@@ -1,3 +1,4 @@
+#!usr/bin/python3.6
 import tkinter,time,os.path
 import tkinter.filedialog
 
@@ -12,7 +13,7 @@ root.withdraw()
 print("Select the destination directory")
 print(" PS:go inside it then select open")
 
-filename=tkinter.filedialog.askdirectory(parent=root,initialdir="/home",title='Please select a destination directory')
+filename=tkinter.filedialog.askdirectory(parent=root,initialdir="/",title='Please select a destination directory')
 text_file=open("myfolder.txt","w")
 text_file.write("%s" % filename)
 text_file.close()
@@ -24,4 +25,7 @@ text_file2=open("count.txt","w")# Output->previous filename
 text_file2.close()
 
 text_file2=open("output.txt","w")#output->new filename
+text_file2.close()
+
+text_file2=open("time.txt","w")#output->new filename
 text_file2.close()
